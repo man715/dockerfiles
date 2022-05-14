@@ -8,13 +8,16 @@
 # 	jess/tor-proxy
 #
 FROM alpine:latest
-LABEL maintainer "Jessie Frazelle <jess@linux.com>"
+LABEL maintainer "Man715 <man715@protonmail.com>"
 
 RUN apk --no-cache add \
-	tor
+	tor \
+    curl \
+    net-tools
 
 # expose socks port
 EXPOSE 9050
+EXPOSE 9040
 
 # copy in our torrc file
 COPY torrc.default /etc/tor/torrc.default

@@ -24,7 +24,7 @@ SocksPort 0.0.0.0:9050
 ## all (and only) requests that reach a SocksPort. Untrusted users who
 ## can access your SocksPort may be able to learn about the connections
 ## you make.
-#SocksPolicy accept 192.168.0.0/16
+SocksPolicy accept *
 #SocksPolicy reject *
 
 ## Logs go to stdout at level "notice" unless redirected by something
