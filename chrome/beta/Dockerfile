@@ -10,17 +10,17 @@
 #	-v $HOME/.config/google-chrome/:/data \ # if you want to save state
 #	--security-opt seccomp=$HOME/chrome.json \
 #	--device /dev/snd \ # so we have sound
-#	--device /dev/dri \
+#   --device /dev/dri \
 #	-v /dev/shm:/dev/shm \
 #	--name chrome \
-#	jess/chrome:beta
+#	jess/chrome
 #
 # You will want the custom seccomp profile:
 # 	wget https://raw.githubusercontent.com/jfrazelle/dotfiles/master/etc/docker/seccomp/chrome.json -O ~/chrome.json
 
 # Base docker image
 FROM debian:bullseye-slim
-LABEL maintainer "Jessie Frazelle <jess@linux.com>"
+LABEL maintainer "Man715 <man715@protonmail.com>"
 
 # Install Chrome
 RUN apt-get update && apt-get install -y \
@@ -40,14 +40,14 @@ RUN apt-get update && apt-get install -y \
 	&& curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
 	&& echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list \
 	&& apt-get update && apt-get install -y \
-	google-chrome-beta \
+	google-chrome-stable \
 	--no-install-recommends \
 	&& apt-get purge --auto-remove -y curl \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Add chrome user
 RUN groupadd -r chrome && useradd -r -g chrome -G audio,video chrome \
-    && mkdir -p /home/chrome/Downloads && chown -R chrome:chrome /home/chrome
+    && mkdir -p /home/chrome/Downloads && chown -R chrome:chrome /home/chrome && chown -R chrome:chrome /home/chrome
 
 COPY local.conf /etc/fonts/local.conf
 
